@@ -2,4 +2,4 @@
 
 Hello again! 
 
-Please view each skills section as indicated on my Resume.
+This repository is a digital footprint intended for recruiters/employers to assess the Technical Skills section highlighted in my Resume. Please view each file and their associated "README.md"
