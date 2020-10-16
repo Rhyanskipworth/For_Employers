@@ -1,3 +1,66 @@
+CREATE DATABASE Dino
 
+CREATE TABLE Dinosaurs 
+(
+    DinoID int IDENTITY(1,1) NOT NULL,
+    DietType varchar(45)  NOT NULL,
+    Size varchar(15)  NULL,
+    EraID int  NOT NULL,
+    GeoID int  NOT NULL,
+    PaleontologistID int  NOT NULL,
+
+    CONSTRAINT PK_Dinosaurs PRIMARY KEY CLUSTERED (DinoID)
+)
+
+CREATE TABLE Paleontology 
+(
+    PaleontologistID int IDENTITY(1,1) NOT NULL,
+    FirstName varchar(45)  NOT NULL,
+    LastName varchar(45)  NOT NULL,
+    Email varchar(45)  NOT NULL,
+    PhoneNumber char(10)  NOT NULL,
+
+    CONSTRAINT PK_Paleontology PRIMARY KEY CLUSTERED (PaleontologistID)
+)
+
+CREATE TABLE Geography 
+(
+    GeoID int IDENTITY(1,1) NOT NULL,
+    Region Varchar(45)  NOT NULL,
+    City Varchar(45)  NOT NULL,
+    State Char(2)  NOT NULL,
+    Zip Char(9)  NOT NULL,
+
+    CONSTRAINT PK_Geography PRIMARY KEY CLUSTERED (GeoID)
+)
+
+CREATE TABLE Era 
+(
+    EraID Int IDENTITY(1,1) NOT NULL,
+    TriassicPeriod date  NOT NULL ,
+    JurassicPeriod date  NOT NULL ,
+    CretaceousPeriod date  NOT NULL ,
+
+    CONSTRAINT PK_Era PRIMARY KEY CLUSTERED (EraID)
+)
+
+ALTER TABLE Dinosaurs 
+	ADD CONSTRAINT FK_Dinosaurs_EraID 
+		FOREIGN KEY (EraID) REFERENCES Era(EraID)
+
+ALTER TABLE Dinosaurs
+	ADD CONSTRAINT FK_Dinosaurs_GeoID
+		FOREIGN KEY (GeoID) REFERENCES Geography(GeoID)
+
+ALTER TABLE Dinosaurs 
+	ADD CONSTRAINT FK_Dinosaurs_PaleontologistID
+	FOREIGN KEY(PaleontologistID) REFERENCES Paleontology(PaleontologistID)
+
+TRUNCATE TABLE Dinosaurs
+TRUNCATE TABLE Paleontology
+TRUNCATE TABLE Geography
+TRUNCATE TABLE Era
+
+DROP DATABASE IF EXISTS Dino
 
 
