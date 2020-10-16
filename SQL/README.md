@@ -1,17 +1,6 @@
 # INDEX
 ## Data Definition Language (DDL)
-  Creates a simple 3NF designed DB titled Dinosaurs from scratch. Simply intended to showcase fundamental DB design principles.
-```
-[will input code or file here, still learning how to format/customize Git]
-
-```
-
-
+  Creates a simple 3NF designed DB titled Dinosaurs (which contains 5 tables) from scratch.  Simply intended to showcase fundamental DB design principles.
 
 ## Data Manipulation Language (DML)
-  Queries from AdventureWorks
- 
-```
-[will input code or file here, still learning how to format/customize Git]
-
-```
+  Queries from AdventureWorks DB
