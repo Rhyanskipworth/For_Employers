@@ -1,5 +1,0 @@
-SciKit
-
-Pandas
-
-Numpy
