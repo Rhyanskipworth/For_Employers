@@ -1,6 +1,6 @@
 # INDEX
 ## Data Definition Language (DDL)
-  Creates a 3NF designed DB titled "Dinosaurs" from scratch.  Intended to showcase fundamental DB design principles.
+Showcases fundamental DB design principles. Creates (original) "Dinosaurs" DB in SQL Server 2019. 
 
 ## Data Manipulation Language (DML)
-  Advanced queries from AdventureWorks DB
+Showcases query proficiency using AdventureWorks DB.
