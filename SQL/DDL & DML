@@ -1,11 +1,12 @@
 /*When an error occurs, I use StackOverflow and MicDocs to self-evaluate,
-if that doesn't work, I ask my senior for a solution to avoid wasting time*/
+if that doesn't work, I ask my senior for a solution to avoid wasting time. 
+I understand this DB can be optimized, but is in 3NF and intended as an example to showcase conceptual understanding.*/
 
 
 USE master
 CREATE DATABASE Marvel;
 
---Delete the entire RDBS 
+--To delete the entire RDBS 
 USE master
 DROP DATABASE IF EXISTS Marvel;
 
