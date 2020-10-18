@@ -1,6 +1,6 @@
 # INDEX
 ## Marvel RDBS Code
-Showcases fundamental RDBS design principles, DDL, and DML by creating a "Marvel" RDBS in SQL Server using T-SQL. 
+This code showcases fundamental RDBS design principles, DDL, and DML by creating a "Marvel" RDBS in SQL Server using T-SQL. 
 
 ## Queries for Reports
-Showcases query proficiency using AdventureWorksDB.
+This code showcases query proficiency using AdventureWorksDB.
