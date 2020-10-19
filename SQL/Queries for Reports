@@ -8,7 +8,7 @@ GO
 
 	SELECT COUNT(*) as Total_Employees, 
 		PersonType 
-	FROM person.person 
+	FROM Person.Person 
 	GROUP BY PersonType --To identify all person classifications
 
 	SELECT * 
