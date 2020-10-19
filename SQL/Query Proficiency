@@ -1,7 +1,7 @@
 USE AdventureWorks2019
 GO 
 
--- How many Employees (EEs) are working in AdventureWorks2019?
+-- How many Employees (EEs) are working in AdventureWorks2019? Showcases my logical analysis with new datasets. 
 
 	SELECT * 
 	FROM HumanResources.Employee --290 rows returned, which means there are 290 EE in total
@@ -21,7 +21,7 @@ GO
 	EM = Employee (non-sales)
 	*/
 
--- Generates a report that provides full name of highest paid EEs, Job Title, AnnualSalary and WorkShift.
+-- Generates a report that provides full name of highest paid EEs, Job Title, AnnualSalary and WorkShift. Showcases INNER JOIN.
 
 	SELECT MIN(StartDate) 
 	FROM HumanResources.EmployeeDepartmentHistory 
