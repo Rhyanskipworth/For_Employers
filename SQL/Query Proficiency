@@ -21,7 +21,7 @@ GO
 	EM = Employee (non-sales)
 	*/
 
--- Generates a report that provides full name of EE, Job Title, AnnualSalary and WorkShift.
+-- Generates a report that provides full name of highest paid EEs, Job Title, AnnualSalary and WorkShift.
 
 	SELECT MIN(StartDate) 
 	FROM HumanResources.EmployeeDepartmentHistory 
