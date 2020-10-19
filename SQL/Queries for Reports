@@ -2,52 +2,45 @@ USE AdventureWorks2019
 GO 
 
 -- How many Employees (EEs) are working in AdventureWorks2019?
-SELECT * 
-FROM HumanResources.Employee --290 rows returned, which means there are 290 EE in total
 
-SELECT COUNT(*) as Total_Employees, 
-	PersonType 
-FROM person.person 
-GROUP BY PersonType --To identify all person classifications
+	SELECT * 
+	FROM HumanResources.Employee --290 rows returned, which means there are 290 EE in total
 
-SELECT * 
-FROM Person.Person 
-WHERE PersonType IN ('EM', 'SP') --Returns all 290 EEs
+	SELECT COUNT(*) as Total_Employees, 
+		PersonType 
+	FROM person.person 
+	GROUP BY PersonType --To identify all person classifications
 
-/* 
-Taken from 'datado.com/AdventureWorks.pdf'
-IN = Individual (retail) Customer
-SC = Store Contact,
-SP = Sales person, 
-EM = Employee (non-sales), 
-VC = Vendor contact, 
-GC = General contact
-*/
+	SELECT * 
+	FROM Person.Person 
+	WHERE PersonType IN ('EM', 'SP') --Returns all 290 EEs
+	
+	/* 
+	Taken from 'datado.com/AdventureWorks.pdf'
+	SP = Sales person, 
+	EM = Employee (non-sales)
+	*/
 
--- Generates a report that gives you the full name of EE and Job Title
-select * from Person.Person --To identify BusinessEntityID, Name, and PersonType
-select * from HumanResources.Employee -- Reference to confirm PK and FK table relation 
-select * from Person.BusinessEntityContact
-select * from HumanResources.EmployeePayHistory
-select * from HumanResources.EmployeeDepartmentHistory
-select * from HumanResources.Shift 
-select min(startDate) from HumanResources.EmployeeDepartmentHistory
+-- Generates a report that provides full name of EE, Job Title, AnnualSalary and WorkShift.
 
-SELECT HRE.BusinessEntityID, 
-	CONCAT_WS(' ', Title, FirstName, LastName) Employee, 
-	HRE.JobTitle, 
-	HRE.LoginID,
-	((convert(money, HRP.Rate, 1)) * 2080) AnnualSalary,
-	HRS.Name as WorkShift
-from HumanResources.Employee HRE
-	INNER JOIN Person.Person P
-		ON P.BusinessEntityID = HRE.BusinessEntityID
-	INNER JOIN HumanResources.EmployeePayHistory HRP
-		ON HRP.BusinessEntityID = P.BusinessEntityID
-	INNER JOIN HumanResources.EmployeeDepartmentHistory HREDH
-		ON HRP.BusinessEntityID = HREDH.BusinessEntityID
-	INNER JOIN HumanResources.Shift HRS
-		ON HREDH.ShiftID = HRS.ShiftID
-WHERE ((CONVERT(MONEY, HRP.Rate, 1)) * 2080) > '70000'
-	AND StartDate > '2006-06-30'
-ORDER BY BusinessEntityID
+	SELECT MIN(StartDate) 
+	FROM HumanResources.EmployeeDepartmentHistory 
+
+	SELECT HRE.BusinessEntityID, 
+		CONCAT_WS(' ', Title, FirstName, LastName) Employee, 
+		HRE.JobTitle, 
+		HRE.LoginID,
+		((convert(money, HRP.Rate, 1)) * 2080) AnnualSalary,
+		HRS.Name as WorkShift
+	from HumanResources.Employee HRE
+		INNER JOIN Person.Person P
+			ON P.BusinessEntityID = HRE.BusinessEntityID
+		INNER JOIN HumanResources.EmployeePayHistory HRP
+			ON HRP.BusinessEntityID = P.BusinessEntityID
+		INNER JOIN HumanResources.EmployeeDepartmentHistory HREDH
+			ON HRP.BusinessEntityID = HREDH.BusinessEntityID
+		INNER JOIN HumanResources.Shift HRS
+			ON HREDH.ShiftID = HRS.ShiftID
+	WHERE ((CONVERT(MONEY, HRP.Rate, 1)) * 2080) > '70000'
+		AND StartDate > '2006-06-30'
+	ORDER BY BusinessEntityID
