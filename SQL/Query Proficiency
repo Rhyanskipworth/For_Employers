@@ -44,3 +44,16 @@ GO
 	WHERE ((CONVERT(MONEY, HRP.Rate, 1)) * 2080) > '70000'
 		AND StartDate > '2006-06-30'
 	ORDER BY BusinessEntityID
+	
+-- Removes duplicate values from Production.TransactionHistory table. Showcases data cleansing.
+
+	WITH  DuplicateValues AS  
+ 		( SELECT  PTH.TransactionID, 
+		   	  PTH.ProductID, 
+		  ROW_NUMBER() OVER ( PARTITION BY PTH.TransactionID, 
+		   	  PTH.ProductID ORDER BY PTH.TransactionID) AS Duplicates 
+		  FROM  production.TransactionHistory PTH ) 
+  	DELETE  FROM DuplicateValues  
+  	WHERE  Duplicates> 1  
+	
+-- 
