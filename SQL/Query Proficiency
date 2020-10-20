@@ -56,4 +56,20 @@ GO
   	DELETE  FROM DuplicateValues  
   	WHERE  Duplicates> 1  
 	
--- 
+-- Creates a table for Bestseller products. Showcases
+
+	SELECT DISTINCT SSOD.ProductID,
+		ProdP.Name ProductName,
+		ProdP.ListPrice,
+		SUM(OrderQty) UnitsSold,
+		(ProdP.ListPrice * SUM(OrderQty)) SalesRevenue
+	FROM Sales.SalesOrderDetail SSOD
+		INNER JOIN Production.Product ProdP
+			ON SSOD.ProductID = ProdP.ProductID
+	GROUP BY SSOD.ProductID,
+		ProdP.Name,
+		ProdP.ListPrice
+	ORDER BY SUM(OrderQty) DESC
+	
+	SELECT DISTINCT ProductID from Sales.SalesOrderDetail -- 266/504 total products were sold
+	SELECT SUM(OrderQty) from Sales.SalesOrderDetail where ProductID = '707' --Error check to verify quanity sold per product
