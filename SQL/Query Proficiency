@@ -3,17 +3,17 @@ GO
 
 -- How many Employees (EEs) are working in AdventureWorks2019? Showcases my logical analysis with new datasets. 
 
-	SELECT * 
-	FROM HumanResources.Employee --290 rows returned, which means there are 290 EE in total
+	SELECT * 					--290 rows returned, which means there are 290 EEs in total
+	FROM HumanResources.Employee 			
 
-	SELECT COUNT(*) as Total_Employees, 
+	SELECT COUNT(*) as Total_Employees, 		--To identify all person classifications
 		PersonType 
 	FROM Person.Person 
-	GROUP BY PersonType --To identify all person classifications
+	GROUP BY PersonType 				
 
-	SELECT * 
+	SELECT * 					--Returns all 290 EEs
 	FROM Person.Person 
-	WHERE PersonType IN ('EM', 'SP') --Returns all 290 EEs
+	WHERE PersonType IN ('EM', 'SP') 
 	
 	/* 
 	Taken from 'datado.com/AdventureWorks.pdf'
@@ -57,12 +57,12 @@ GO
 		  FROM  production.TransactionHistory PTH ) 
 		  
   	DELETE  FROM DuplicateValues  
-  	WHERE  Duplicates> 1  
+  	WHERE  Duplicates > 1  
 	
 	
 -- Creates a table for BestSellingProducts. Showcases Analytic Functions.
 	
-	SELECT DISTINCT ProductID FROM Sales.SalesOrderDetail 				-- 266/504 total products were sold
+	SELECT DISTINCT ProductID FROM Sales.SalesOrderDetail 				-- Confirms 266/504 total products were sold
 	SELECT SUM(OrderQty) FROM Sales.SalesOrderDetail WHERE ProductID = '707' 	--Error check to verify quanity sold per product
 	
 	SELECT DISTINCT SSOD.ProductID,
