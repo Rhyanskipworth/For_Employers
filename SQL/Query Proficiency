@@ -103,7 +103,7 @@ GO
 					GROUP BY SSOD.ProductID) as AvgQuanityAmnt)
   		 AND
 		SalesRevenue >= (SELECT AVG(salesrevenue) 
-				FROM	(SELECT DISTINCT SSOD.ProductID,		--This subquery calculates which products generated the most sales revenue as HighestProfitProducts
+				FROM	(SELECT DISTINCT SSOD.ProductID,		--This subquery calculates which products generated the most sales revenue on avg as AvgHighestProfitProducts
 							ProdP.Name ProductName,
 							ProdP.ListPrice,
 							SUM(OrderQty) UnitsSold,
@@ -113,5 +113,5 @@ GO
 							ON SSOD.ProductID = ProdP.ProductID
 					GROUP BY SSOD.ProductID,
 							ProdP.Name,
-							ProdP.ListPrice) HighestProfitProducts)
+							ProdP.ListPrice) AvgHighestProfitProducts)
 	ORDER BY PercentRankOfSalesRevenue DESC
