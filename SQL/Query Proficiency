@@ -52,21 +52,25 @@ GO
 	WITH  DuplicateValues AS  
  		( SELECT  PTH.TransactionID, 
 		   	  PTH.ProductID, 
-		  ROW_NUMBER() OVER ( PARTITION BY PTH.TransactionID, 
+		  	  ROW_NUMBER() OVER ( PARTITION BY PTH.TransactionID, 
 		   	  PTH.ProductID ORDER BY PTH.TransactionID) AS Duplicates 
 		  FROM  production.TransactionHistory PTH ) 
+		  
   	DELETE  FROM DuplicateValues  
   	WHERE  Duplicates> 1  
 	
 	
 -- Creates a table for BestSellingProducts. Showcases Analytic Functions.
-
+	
+	SELECT DISTINCT ProductID FROM Sales.SalesOrderDetail 				-- 266/504 total products were sold
+	SELECT SUM(OrderQty) FROM Sales.SalesOrderDetail WHERE ProductID = '707' 	--Error check to verify quanity sold per product
+	
 	SELECT DISTINCT SSOD.ProductID,
 		ProdP.Name ProductName,
 		ProdP.ListPrice,
 		SUM(OrderQty) UnitsSold,
 		(ProdP.ListPrice * SUM(OrderQty)) SalesRevenue,
-		PERCENT_RANK() OVER(ORDER BY (ProdP.ListPrice * SUM(OrderQty))) PercentRankOfSalesRevenue --Ranks the most profitable Product 
+		PERCENT_RANK() OVER(ORDER BY (ProdP.ListPrice * SUM(OrderQty))) PercentRankOfSalesRevenue 	--Ranks the most profitable Product 
 	FROM Sales.SalesOrderDetail SSOD
 		INNER JOIN Production.Product ProdP
 			ON SSOD.ProductID = ProdP.ProductID
@@ -74,43 +78,40 @@ GO
 		ProdP.Name,
 		ProdP.ListPrice
 	ORDER BY SalesRevenue DESC
-	
-	SELECT DISTINCT ProductID from Sales.SalesOrderDetail -- 266/504 total products were sold
-	SELECT SUM(OrderQty) from Sales.SalesOrderDetail where ProductID = '707' --Error check to verify quanity sold per product
 
 
 -- Shows which products are selling higher than average amounts. Showcases SUBQUERIES.
 
-SELECT *
-FROM
-	(SELECT DISTINCT SSOD.ProductID,			
-		ProdP.Name ProductName,
-		ProdP.ListPrice,
-		SUM(OrderQty) UnitsSold,
-		(ProdP.ListPrice * SUM(OrderQty)) SalesRevenue,
-		PERCENT_RANK() OVER(ORDER BY (ProdP.ListPrice * SUM(OrderQty))) PercentRankOfSalesRevenue 
-	FROM Sales.SalesOrderDetail SSOD
-		INNER JOIN Production.Product ProdP
-			ON SSOD.ProductID = ProdP.ProductID
-	GROUP BY SSOD.ProductID,
-		ProdP.Name,
-		ProdP.ListPrice) BestSellingProducts
-WHERE UnitsSold >= (SELECT AVG(UnitsSold) AvgUnitsSold					--This subquery calculates the AvgQuanityAmnt from Sales
+	SELECT *
+	FROM
+		(SELECT DISTINCT SSOD.ProductID,			
+			ProdP.Name ProductName,
+			ProdP.ListPrice,
+			SUM(OrderQty) UnitsSold,
+			(ProdP.ListPrice * SUM(OrderQty)) SalesRevenue,
+			PERCENT_RANK() OVER(ORDER BY (ProdP.ListPrice * SUM(OrderQty))) PercentRankOfSalesRevenue 
+		FROM Sales.SalesOrderDetail SSOD
+			INNER JOIN Production.Product ProdP
+				ON SSOD.ProductID = ProdP.ProductID
+		GROUP BY SSOD.ProductID,
+			ProdP.Name,
+			ProdP.ListPrice) BestSellingProducts
+	WHERE UnitsSold >= (SELECT AVG(UnitsSold) AvgUnitsSold				--This subquery calculates which products are selling at higher than avg amounts as AvgQuanityAmnt 
 				FROM (SELECT DISTINCT SSOD.ProductID,
-					SUM(OrderQty) UnitsSold
+						SUM(OrderQty) UnitsSold
 					FROM Sales.SalesOrderDetail SSOD
 					GROUP BY SSOD.ProductID) as AvgQuanityAmnt)
-   AND
-	SalesRevenue >= (SELECT AVG(salesrevenue) 
-			FROM	(SELECT DISTINCT SSOD.ProductID,			--This subquery calculates which products generated the most sales revenue as HighestProfitProducts
-					ProdP.Name ProductName,
-					ProdP.ListPrice,
-					SUM(OrderQty) UnitsSold,
-					(ProdP.ListPrice * SUM(OrderQty)) SalesRevenue
-				FROM Sales.SalesOrderDetail SSOD
-				INNER JOIN Production.Product ProdP
-					ON SSOD.ProductID = ProdP.ProductID
-				GROUP BY SSOD.ProductID,
-					ProdP.Name,
-					ProdP.ListPrice) HighestProfitProducts)
-ORDER BY PercentRankOfSalesRevenue DESC
+  		 AND
+		SalesRevenue >= (SELECT AVG(salesrevenue) 
+				FROM	(SELECT DISTINCT SSOD.ProductID,		--This subquery calculates which products generated the most sales revenue as HighestProfitProducts
+							ProdP.Name ProductName,
+							ProdP.ListPrice,
+							SUM(OrderQty) UnitsSold,
+							(ProdP.ListPrice * SUM(OrderQty)) SalesRevenue
+					FROM Sales.SalesOrderDetail SSOD
+						INNER JOIN Production.Product ProdP
+							ON SSOD.ProductID = ProdP.ProductID
+					GROUP BY SSOD.ProductID,
+							ProdP.Name,
+							ProdP.ListPrice) HighestProfitProducts)
+	ORDER BY PercentRankOfSalesRevenue DESC
