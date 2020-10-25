@@ -1,4 +1,4 @@
 # INDEX
 
 ## Classic Games
-Python files that create classic games.
+Python codes that create 2 classic games (Pong and Flappy Birds).[sourced from freeCodeCamp tutorials]
