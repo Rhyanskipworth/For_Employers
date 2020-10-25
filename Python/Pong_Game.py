@@ -8,9 +8,7 @@ wn.bgcolor("black")
 wn.setup(width=800, height=600)
 wn.tracer
 
-# Creates Game Objects: paddle a, paddle b, ball
-        # Tip: Don't write the whole code then test, test step-by-step
-
+# Creates Game Objects: paddle a, paddle b, ball (Tip: Don't write the whole code then test, test step-by-step)
 paddle_a= turtle.Turtle()
 paddle_a.speed(0)
 paddle_a.shape("square")
@@ -75,7 +73,7 @@ pen.write("Player A: 0  Player B: 0", align="center", font=("Courier", 24, "norm
 score_a = 0
 score_b = 0
 
-# Main game loop
+# Main Game Loop
 while True:
         wn.update()
 
@@ -106,7 +104,7 @@ while True:
                         pen.clear()
                         pen.write("Player A: {}  Player B: {}".format (score_a, score_b), align="center", font=("Courier", 24, "normal"))
 
-        # Paddle and ball collisions
+        # Establish paddles and ball "bounces"
         if (ball.xcor() > 340 and ball.xcor() < 350) and ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() -40:
                         ball.setx(340)
                         ball.dx *= -1
