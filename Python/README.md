@@ -1,4 +1,4 @@
-##INDEX
+# INDEX
 
-#Classic Games
+## Classic Games
 Python files that create classic games.
