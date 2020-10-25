@@ -1,4 +1,4 @@
 # INDEX
 
-## Classic_Games
-Python files that create 2 classic games (Pong and Flappy Birds). [Sourced from freeCodeCamp tutorials]
+## Classic_Game
+Python files that create classic games (Pong, Tetris, Flappy Birds). [Sourced from freeCodeCamp tutorials]
