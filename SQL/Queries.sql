@@ -115,3 +115,23 @@ GO
 							ProdP.Name,
 							ProdP.ListPrice) AvgHighestProfitProducts)
 	ORDER BY PercentRankOfSalesRevenue DESC
+
+
+USE WideWorldImportersDW
+GO
+
+-- Concatenating query result into one column to allow SSIS data flow to automate data extraction package by preventing manual "metadata error" with comma delimiter.
+
+	SELECT CONCAT_WS
+	(
+		',',
+		CAST(FS.[Invoice Date Key] AS nvarchar (40)),
+		CAST(SUM(FS.Quantity) AS nvarchar (40)),
+		CAST(SUM(FS.Profit) AS nvarchar (40)),
+		CAST(SUM(FS.[Tax Amount]) AS nvarchar (40)),
+		CAST(SUM(FS.[Total Including Tax]) AS nvarchar (40)),
+		CAST(SUM(FS.[Total Excluding Tax]) AS nvarchar (40))
+	) AS Result
+	FROM [Fact].[Sale] FS
+	GROUP BY FS.[Invoice Date Key]
+ORDER BY FS.[Invoice Date Key]
