@@ -28,7 +28,7 @@ GO
  		( SELECT  PTH.TransactionID, 
 		   	  PTH.ProductID, 
 		  	  ROW_NUMBER() OVER ( PARTITION BY PTH.TransactionID, 
-		   	  PTH.ProductID ORDER BY PTH.TransactionID) AS Duplicates 
+		   	  	PTH.ProductID ORDER BY PTH.TransactionID) AS Duplicates 
 		  FROM  production.TransactionHistory PTH ) 
 		  
   	DELETE  FROM DuplicateValues  
