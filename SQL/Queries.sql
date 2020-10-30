@@ -32,7 +32,7 @@ GO
 		  FROM  production.TransactionHistory PTH ) 
 		  
   	DELETE  FROM DuplicateValues  
-  	WHERE  Duplicates > 1  
+  	WHERE  Duplicates = 1  
 
 -- How many Employees (EEs) are working in AdventureWorks2019? Showcases my logical analysis with new datasets. 
 
