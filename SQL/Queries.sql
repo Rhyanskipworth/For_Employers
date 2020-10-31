@@ -2,6 +2,7 @@ USE WideWorldImportersDW
 GO
 
 -- Concatenating query result into one column to allow SSIS data flow to automate data extraction package by preventing manual "metadata error" with comma delimiter.
+-- Cannot use STRING_AGG on an expression containing an aggregate or a subquery.
 
 	SELECT CONCAT_WS
 	(
