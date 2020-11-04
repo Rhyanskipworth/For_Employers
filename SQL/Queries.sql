@@ -55,7 +55,7 @@ GO
 	EM = Employee (non-sales)
 	*/
 
--- Generates a Product Inventory report for products that fall below stock quantity and their ReorderCost costs. Showcases CASE statements & LEFT JOIN.
+-- Generates a Product Inventory report for products that fall below stock quantity and their ReorderCost costs. Showcases CASE STATEMENT & LEFT JOIN.
 
 	SELECT 	PIn.LocationID,
 		P.ProductID,
