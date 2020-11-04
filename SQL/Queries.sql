@@ -55,6 +55,27 @@ GO
 	EM = Employee (non-sales)
 	*/
 
+-- Generates a Product Inventory report for products that fall below stock quantity and their ReorderCost costs. Showcases CASE statements & LEFT JOIN.
+
+	SELECT 	PIn.LocationID,
+		P.ProductID,
+		P.Name,
+		P.SafetyStockLevel,
+		P.ReorderPoint,
+		PIn.Quantity,
+			CASE
+				WHEN PIn.Quantity < P.ReorderPoint THEN (P.ReorderPoint - PIn.Quantity)*P.StandardCost
+			ELSE NULL
+			END ReorderCost,
+		P.StandardCost,
+		P.ListPrice,
+		P.DaysToManufacture
+	FROM [Production].[Product] P
+		LEFT JOIN [Production].[ProductInventory] PIn 
+			ON P.ProductID = PIn.ProductID
+	WHERE ListPrice > 0 
+		AND PIn.Quantity < ReorderPoint 
+	ORDER BY ListPrice DESC
 
 -- Generates a report that provides full name of highest paid EEs, Job Title, AnnualSalary and WorkShift. Showcases INNER JOIN.
 
