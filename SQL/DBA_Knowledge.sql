@@ -1,18 +1,24 @@
-/* "Marvel" is an original RDBS I created for educational purposes.
-I understand it can be optimized, but is in 3NF and intended as an example to showcase conceptual understanding. */
-
-/* When moving DBs from server to server
+/* When moving DBs from server to server,
 	1st option: Back up the data files then restore that back up to the target server.
 	2nd option: Detach '.mdf' & '.ldf' data file then attach to target server */
 
+-- To auto-replicate DBs to another server, use the Replication Manager to create a publisher and subscriber.
+
+	
+
 -- Creates and/or deletes Marvel DB.
+/* 
+"Marvel" is an original RDBS I created for educational purposes.
+I understand it can be optimized, but is in 3NF and intended as an example to showcase conceptual understanding. 
+*/
+		
 	USE master
 	CREATE DATABASE Marvel;
 
 	USE master				 
 	DROP DATABASE IF EXISTS Marvel;
 
--- T-SQL scripts for creating tables within "Marvel" DB.
+     -- T-SQL scripts for creating tables within "Marvel" DB.
 
 	USE Marvel
 	CREATE TABLE Superhero 
@@ -80,10 +86,10 @@ I understand it can be optimized, but is in 3NF and intended as an example to sh
 		('BronzeAge', '1970 – 1985'),
 		('ModernAge', '1985 – PresentDay');
 
---To clear tables faster than a 'DELETE * FROM' statement
+     --To clear tables faster than a 'DELETE * FROM' statement
 	TRUNCATE TABLE Superhero; 
 
--- T-SQL scripts to create relationships (via foreign keys) between each table.
+     -- T-SQL scripts to create relationships (via foreign keys) between each table.
 
 	ALTER TABLE Superhero  
 		ADD CONSTRAINT FK_Superhero_EraID 
