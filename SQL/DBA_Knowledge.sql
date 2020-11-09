@@ -7,10 +7,10 @@
 	
 
 -- Creates and/or deletes Marvel DB.
-/* 
-"Marvel" is an original RDBS I created for educational purposes.
-I understand it can be optimized, but is in 3NF and intended as an example to showcase conceptual understanding. 
-*/
+	/* 
+	"Marvel" is an original RDBS I created for educational purposes.
+	I understand it can be optimized, but is in 3NF and intended as an example to showcase conceptual understanding. 
+	*/
 		
 	USE master
 	CREATE DATABASE Marvel;
