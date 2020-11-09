@@ -1,5 +1,5 @@
 /* When moving DBs from server to server,
-	1st option: Back up the data files then restore them onto the target server.
+	1st option: Back up the source data files then restore them onto the destination server.
 	2nd option: Detach DB '.mdf' & '.ldf' data files then attach to target server */
 
 -- To auto-replicate DBs to another server, use the Replication Manager (via GUI) to create a publisher and subscriber.
