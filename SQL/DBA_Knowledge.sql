@@ -2,8 +2,18 @@
 	1st option: Back up the data files then restore them onto the target server.
 	2nd option: Detach DB '.mdf' & '.ldf' data files then attach to target server */
 
--- To auto-replicate DBs to another server, use the Replication Manager to create a publisher and subscriber.
+-- To auto-replicate DBs to another server, use the Replication Manager (via GUI) to create a publisher and subscriber.
 
+-- Creates DB snapshots for temp period-over-period analyses/reporting (does NOT replace backup and restore strategy).
+
+	USE AdventureWorksDW2019
+	GO
+	
+	CREATE DATABASE AdventureWorksDW2019_dbss ON
+		( NAME = AdventureWorksDW2017,
+	  	  FILENAME ='C:\Program Files\Microsoft SQL Server\AdventureWorksDW2019_ASOF"CurrentDate".ss' 
+		) AS SNAPSHOT OF AdventureWorksDW2019;
+	
 	
 
 -- Creates and/or deletes Marvel DB.
