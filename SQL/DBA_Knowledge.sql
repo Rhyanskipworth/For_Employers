@@ -11,11 +11,11 @@
 	
 	CREATE DATABASE AdventureWorksDW2019_dbss ON
 		( NAME = AdventureWorksDW2017,										-- Found on DB properties: Files --> Logical Name
-	  	  FILENAME ='C:\Program Files\Microsoft SQL Server\AdventureWorksDW2019_ASOF"CurrentDate".ss' 
+	  	  FILENAME ='C:\Program Files\Microsoft SQL Server\AdventureWorksDW2019.ss' 
 		) AS SNAPSHOT OF AdventureWorksDW2019;
 	
 	RESTORE DATABASE [AdventureWorksDW2019]
-	FROM DATABASE_SNAPSHOT = 'AdventureWorksDW2019_asof"CurrentDate"_dbss'
+	FROM DATABASE_SNAPSHOT = 'AdventureWorksDW2019_dbss'
 	
 		/* To verify dbss name
 		   SELECT * FROM sys.databases */
