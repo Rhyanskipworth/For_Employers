@@ -1,6 +1,7 @@
-/* When moving DBs from server to server,
+/* Data migration techniques,
 	1st option: Back up the source data files then restore '.bak' files onto the destination server DB.
-	2nd option: Detach DB '.mdf' & '.ldf' data files then attach to target server */
+	2nd option: Detach DB '.mdf' & '.ldf' data files then attach to target server
+	3rd option: Script the entire DB via Tasks --> Generate and Publish Scripts */
 
 -- To auto-replicate DBs to another server, use the Replication Manager (via GUI) to create a publisher and subscriber.
 
