@@ -4,17 +4,21 @@
 
 -- To auto-replicate DBs to another server, use the Replication Manager (via GUI) to create a publisher and subscriber.
 
--- Creates DB snapshots for temp period-over-period analyses/reporting (does NOT replace backup and restore strategy).
+-- Creates a DB snapshot for temporary period-over-period analyses/reporting and restoration (dbss should NOT replace standard backup and restore strategy).
 
 	USE AdventureWorksDW2019
 	GO
 	
 	CREATE DATABASE AdventureWorksDW2019_dbss ON
-		( NAME = AdventureWorksDW2017,
+		( NAME = AdventureWorksDW2017,										-- Found on DB properties "FileName"
 	  	  FILENAME ='C:\Program Files\Microsoft SQL Server\AdventureWorksDW2019_ASOF"CurrentDate".ss' 
 		) AS SNAPSHOT OF AdventureWorksDW2019;
 	
+	RESTORE DATABASE [AdventureWorksDW2019]
+	FROM DATABASE_SNAPSHOT = 'AdventureWorksDW2019_asof"CurrentDate"_dbss'
 	
+		/* To verify dbss name
+		   SELECT * FROM sys.databases */
 
 -- Creates and/or deletes Marvel DB.
 	/* 
