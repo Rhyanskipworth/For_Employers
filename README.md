@@ -1,4 +1,4 @@
-# For Recruiters/Employers
+# For Employers
 
 Hello! 
 
