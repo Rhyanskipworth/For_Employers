@@ -120,7 +120,6 @@
 			SELECT S.HeroName, E.PublishedPeriod
 			FROM Superhero S
 			INNER JOIN Era E ON S.EraID = E.EraID
-		
 
 
 
