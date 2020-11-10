@@ -11,7 +11,7 @@
 	GO
 	
 	CREATE DATABASE AdventureWorksDW2019_dbss ON
-		( NAME = AdventureWorksDW2017,										-- Found on DB properties: Files --> Logical Name
+		( NAME = AdventureWorksDW2017,								-- Found on DB properties: Files --> Logical Name
 	  	  FILENAME ='C:\Program Files\Microsoft SQL Server\AdventureWorksDW2019.ss' 
 		) AS SNAPSHOT OF AdventureWorksDW2019;
 	
@@ -19,7 +19,7 @@
 	FROM DATABASE_SNAPSHOT = 'AdventureWorksDW2019_dbss'
 	
 		/* To verify dbss name */
-		   SELECT * FROM sys.databases 
+		   SELECT * FROM sys.databases   [or]   SELECT * FROM sysdatabases
 
 -- Creates and/or deletes Marvel DB.
 	/* 
