@@ -138,7 +138,10 @@ The syntax below jokingly shows this fued as administrative duties for Marvel RD
 
 	CREATE LOGIN JackKirby   
     	WITH PASSWORD = 'MarvelisOURS'; 
+	
+	ALTER AUTHORIZATION ON Databases:: Marvel TO Stan Lee;
 
 	CREATE SCHEMA OwnedBy AUTHORIZATION StanLee
 		GRANT SELECT ON SCHEMA::OwnedBy TO JackKirby;
+		
 
