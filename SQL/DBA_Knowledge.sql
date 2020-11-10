@@ -18,8 +18,8 @@
 	RESTORE DATABASE [AdventureWorksDW2019]
 	FROM DATABASE_SNAPSHOT = 'AdventureWorksDW2019_dbss'
 	
-		/* To verify dbss name
-		   SELECT * FROM sys.databases */
+		/* To verify dbss name */
+		   SELECT * FROM sys.databases 
 
 -- Creates and/or deletes Marvel DB.
 	/* 
@@ -118,13 +118,12 @@
 		ADD CONSTRAINT FK_SSN
 		FOREIGN KEY(RealIdentity) REFERENCES RealIdentity(SSN);
 	
-		/* 
-		Query to check if relationships are connected
+		/* Query to check if relationships are connected */
 		
-		select S.HeroName, E.PublishedPeriod
-		from Superhero S
-		inner join Era E on S.EraID = E.EraID
-		*/
+			SELECT S.HeroName, E.PublishedPeriod
+			FROM Superhero S
+			INNER JOIN Era E ON S.EraID = E.EraID
+		
 
 
 
