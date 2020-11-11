@@ -21,7 +21,7 @@
 		/* To verify dbss name */
 		   SELECT * FROM sys.databases   [or]   SELECT * FROM sysdatabases
 
--- Creates a stored procedure to view each sales rep's revenue ordered by country.
+-- Creates a stored procedure to view each sales rep's overall revenue ordered by country.
 
 	USE [Northwind]
 	GO
