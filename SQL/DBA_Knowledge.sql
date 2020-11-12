@@ -20,6 +20,8 @@
 	
 		/* To verify dbss name */
 		   SELECT * FROM sys.databases   [or]   SELECT * FROM sysdatabases
+		   
+		   
 
 -- Creates a stored procedure to view each sales rep's overall revenue ordered by country.
 
@@ -62,6 +64,8 @@
 		o.ShipCountry,
 		O.OrderDate
 	ORDER BY OrderAmt DESC
+
+
 
 -- Creates and/or deletes Marvel DB.
  /* 'Marvel' is an original RDBMS I created for educational purposes. I understand it can be optimized, but it's in 3NF and intended to showcase conceptual understanding. */
@@ -163,13 +167,13 @@
 			FROM Superhero S
 			INNER JOIN Era E ON S.EraID = E.EraID
 
-
-
-/*
-Jack Kirby (comic artist) and Stan Lee (movie producer) were the creators of Marvel INC. 
-Once Marvel became extremely lucrative, the two conflicted over Marvel ownership and contract royalties.
-The syntax below jokingly shows this fued as administrative duties for Marvel RDBS.
-*/
+	/*
+	
+	Jack Kirby (comic artist) and Stan Lee (movie producer) were the creators of Marvel INC. 
+	Once Marvel became extremely lucrative, the two conflicted over Marvel ownership and contract royalties.
+	The syntax below jokingly shows this fued as administrative duties for Marvel RDBS.
+	
+	*/
 
 	USE Marvel
 	CREATE USER StanLee FOR LOGIN StanLee;
