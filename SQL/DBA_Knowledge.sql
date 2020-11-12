@@ -11,7 +11,7 @@
 	GO
 	
 	CREATE DATABASE AdventureWorksDW2019_dbss ON
-		( NAME = AdventureWorksDW2017,								-- Found on DB properties: Files --> Logical Name
+		( NAME = AdventureWorksDW2017,							-- Found on DB properties: Files --> Logical Name
 	  	  FILENAME ='C:\Program Files\Microsoft SQL Server\AdventureWorksDW2019.ss' 
 		) AS SNAPSHOT OF AdventureWorksDW2019;
 	
@@ -36,7 +36,7 @@
 
 	/*
 	11/10/2020	RS	created inital procedure
-	11/11/2020	RS	added date paramters, handled nulls, and changed data type for order date
+	11/11/2020	RS	Added date parameters, handled nulls, and changed data type for o.OrderDate
 	*/
 
 	SELECT
