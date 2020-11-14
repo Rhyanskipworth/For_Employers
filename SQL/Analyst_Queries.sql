@@ -1,6 +1,8 @@
 /* When an error occurs, I use StackOverflow and MicDocs to self-evaluate,
 if that doesn't work, I ask my senior for a solution to avoid wasting time. */
 
+
+
 USE WideWorldImportersDW
 GO
 
@@ -22,11 +24,55 @@ GO
 
 
 
+USE [Northwind]
+GO
+
+-- Creates a stored procedure to view each sales rep's overall revenue ordered by country.
+
+	ALTER PROCEDURE [dbo].[CustomerOrderByCountry]
+
+	@Country varchar(15),
+	@DateFrom date,
+	@DateTo date
+
+	AS
+
+	/*
+	11/10/2020	RS	created inital procedure
+	11/11/2020	RS	Added date parameters, handled nulls, and changed data type for o.OrderDate
+	*/
+
+	SELECT
+		CONCAT(e.FirstName, ' ', e.LastName) Employee,
+		c.ContactName Customer,
+		SUM(o.Freight) OrderAmt,
+		o.ShipCountry,
+		CAST(o.OrderDate as date) OrderDate			-- Converted o.OrderDate from DateTime to Date
+	FROM Orders o
+		INNER JOIN Customers c
+			ON o.CustomerID = c.CustomerID
+		INNER JOIN Employees e
+			ON e.EmployeeID = o.EmployeeID
+	WHERE (o.ShipCountry = @Country					-- Set parameter = NULL to allow end-user input and retrieve all dates as default.
+			OR @Country IS NULL)
+	 	AND (o.OrderDate BETWEEN @DateFrom AND @DateTo
+				OR @DateFrom IS NULL
+					OR @DateTo IS NULL)
+	GROUP BY 
+		e.FirstName, 
+		e.LastName, 
+		c.ContactName, 
+		o.ShipCountry,
+		O.OrderDate
+	ORDER BY OrderAmt DESC
+	
+	
+
 USE AdventureWorks2019
-GO 
+GO
 
 -- Removes duplicate values from Production.TransactionHistory table. Showcases data cleansing.
-
+	
 	WITH  DuplicateValues AS  
  		( SELECT  PTH.TransactionID, 
 		   	  PTH.ProductID, 
