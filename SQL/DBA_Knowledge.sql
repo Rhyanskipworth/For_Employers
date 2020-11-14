@@ -22,9 +22,9 @@
 		   SELECT * FROM sys.databases   [or]   SELECT * FROM sysdatabases
 
 
-
--- Creates and/or deletes Marvel DB.
- /* 'Marvel' is an original RDBMS I created for educational purposes. I understand it can be optimized, but it's in 3NF and intended to showcase conceptual understanding. */
+/* 'Marvel' is an original RDBMS I created for educational purposes. I understand it can be optimized, but it's in 3NF and intended to showcase conceptual understanding. */
+    
+    -- Creates and/or deletes Marvel DB.
 
 	USE master
 	CREATE DATABASE Marvel;
