@@ -39,7 +39,7 @@ GO
 
 	/*
 	
-	11/10/2020	RS	created inital procedure
+	11/10/2020	RS	Created Inital Procedure
 	11/11/2020	RS	Added date parameters, handled nulls, and changed data type for o.OrderDate
 	
 	*/
@@ -89,10 +89,10 @@ GO
 
 	/* 
 	
-	Taken from 'https://dataedo.com/download/AdventureWorks.pdf (page.17)'
-	SP = Sales person, 
-	EM = Employee (non-sales)
-	IN = Individual (retail) Customer
+	11/14/2020	RS	Taken from 'https://dataedo.com/download/AdventureWorks.pdf (page.17)'
+				SP = Sales person, 
+				EM = Employee (non-sales)
+				IN = Individual (retail) Customer
 	
 	*/
 
