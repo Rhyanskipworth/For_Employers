@@ -85,6 +85,14 @@ GO
 
 -- How many Employees (EEs) are working in AdventureWorks2019? Showcases my logical analysis with new datasets. 
 
+	/* 
+	
+	Taken from 'https://dataedo.com/download/AdventureWorks.pdf (page.17)'
+	SP = Sales person, 
+	EM = Employee (non-sales)
+	
+	*/
+
 	SELECT * 					--290 rows returned, which means there are 290 EEs in total
 	FROM HumanResources.Employee 			
 
@@ -96,12 +104,6 @@ GO
 	SELECT * 					--Returns all 290 EEs
 	FROM Person.Person 
 	WHERE PersonType IN ('EM', 'SP') 
-	
-	/* 
-	Taken from 'datado.com/AdventureWorks.pdf'
-	SP = Sales person, 
-	EM = Employee (non-sales)
-	*/
 
 -- Generates an Inventory Cost report for products that fall below the stock quantity safety margin and calculates ReorderCost costs. Showcases CASE STATEMENT & LEFT JOIN.
 
