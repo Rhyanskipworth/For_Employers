@@ -38,8 +38,10 @@ GO
 	AS
 
 	/*
+	
 	11/10/2020	RS	created inital procedure
 	11/11/2020	RS	Added date parameters, handled nulls, and changed data type for o.OrderDate
+	
 	*/
 
 	SELECT
@@ -90,6 +92,7 @@ GO
 	Taken from 'https://dataedo.com/download/AdventureWorks.pdf (page.17)'
 	SP = Sales person, 
 	EM = Employee (non-sales)
+	IN = Individual (retail) Customer
 	
 	*/
 
