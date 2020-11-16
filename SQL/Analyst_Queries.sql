@@ -49,7 +49,7 @@ GO
 		c.ContactName Customer,
 		SUM(o.Freight) OrderAmt,
 		o.ShipCountry,
-		CAST(o.OrderDate as date) OrderDate			-- Converted o.OrderDate from DateTime to Date
+		CAST(o.OrderDate as date) OrderDate
 	FROM Orders o
 		INNER JOIN Customers c
 			ON o.CustomerID = c.CustomerID
