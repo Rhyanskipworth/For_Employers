@@ -44,25 +44,25 @@ GO
 	*/
 	SELECT
 		CONCAT(e.FirstName, ' ', e.LastName) Employee,
-		c.ContactName Customer,
-		SUM(o.Freight) OrderAmt,
-		o.ShipCountry,
-		CAST(o.OrderDate as date) OrderDate
-	FROM Orders o
-		INNER JOIN Customers c
-			ON o.CustomerID = c.CustomerID
-		INNER JOIN Employees e
-			ON e.EmployeeID = o.EmployeeID
-	WHERE (o.ShipCountry = @Country					-- Set parameter = NULL to allow end-user input and retrieve all dates as default.
+		C.ContactName Customer,
+		SUM(O.Freight) OrderAmt,
+		O.ShipCountry,
+		CAST(O.OrderDate as date) OrderDate
+	FROM Orders O
+		INNER JOIN Customers C
+			ON O.CustomerID = C.CustomerID
+		INNER JOIN Employees E
+			ON E.EmployeeID = O.EmployeeID
+	WHERE (O.ShipCountry = @Country					-- Set parameter = NULL to allow end-user input and retrieve all dates as default.
 			OR @Country IS NULL)
-	 	AND (o.OrderDate BETWEEN @DateFrom AND @DateTo
+	 	AND (O.OrderDate BETWEEN @DateFrom AND @DateTo
 				OR @DateFrom IS NULL
-					OR @DateTo IS NULL)
+				OR @DateTo IS NULL)
 	GROUP BY 
-		e.FirstName, 
-		e.LastName, 
-		c.ContactName, 
-		o.ShipCountry,
+		E.FirstName, 
+		E.LastName, 
+		C.ContactName, 
+		O.ShipCountry,
 		O.OrderDate
 	ORDER BY OrderAmt DESC
 	
