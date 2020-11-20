@@ -53,7 +53,7 @@ GO
 			ON O.CustomerID = C.CustomerID
 		INNER JOIN Employees E
 			ON E.EmployeeID = O.EmployeeID
-	WHERE (O.ShipCountry = @Country					-- Set parameter = NULL to allow end-user input and retrieve all dates as default.
+	WHERE (O.ShipCountry = @Country					-- Set parameter = NULL to allow end-user input to retrieve all dates as default.
 			OR @Country IS NULL)
 	 	AND (O.OrderDate BETWEEN @DateFrom AND @DateTo
 				OR @DateFrom IS NULL
