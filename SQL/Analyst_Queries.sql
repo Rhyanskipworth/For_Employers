@@ -155,24 +155,33 @@ GO
 	ORDER BY BusinessEntityID
 	
 	
--- Creates a table for BestSellingProducts. Showcases Analytic Functions.
+-- Creates a report for Best-Selling Products. Showcases Analytic Functions.
 	
-	SELECT DISTINCT ProductID FROM Sales.SalesOrderDetail 				-- Confirms 266/504 total products were sold
-	SELECT SUM(OrderQty) FROM Sales.SalesOrderDetail WHERE ProductID = '707' 	--Error check to verify quanity sold per product
-	
-	SELECT DISTINCT SSOD.ProductID,
+	SELECT DISTINCT 
+		SSOD.ProductID,
+		PPS.ProductSubcategoryID,
+		PPS.Name ProductSubcategoryID,
+		ROW_NUMBER() OVER (PARTITION BY PPS.ProductSubcategoryID ORDER BY (ProdP.ListPrice * SUM(OrderQty)) DESC) ProductRank,
 		ProdP.Name ProductName,
 		ProdP.ListPrice,
 		SUM(OrderQty) UnitsSold,
 		(ProdP.ListPrice * SUM(OrderQty)) SalesRevenue,
-		PERCENT_RANK() OVER(ORDER BY (ProdP.ListPrice * SUM(OrderQty))) PercentRankOfSalesRevenue 	--Ranks the most profitable Product 
+		RANK() OVER (ORDER BY (ProdP.ListPrice * SUM(OrderQty)) DESC) ProfitTier,		-- Ranks which product are the most profitable. (RANK function skips rows)
+		DENSE_RANK() OVER(ORDER BY (ProdP.ListPrice * SUM(OrderQty)) DESC) ProfitRank,		-- DENSE_RANK allows for repeated rows and returns consectutive values
+		PERCENT_RANK() OVER(ORDER BY (ProdP.ListPrice * SUM(OrderQty))) PercentPriceRank 	-- Ranks the most profitable Product by percentage 
+		--LAG()
 	FROM Sales.SalesOrderDetail SSOD
 		INNER JOIN Production.Product ProdP
 			ON SSOD.ProductID = ProdP.ProductID
+		INNER JOIN Production.ProductSubcategory PPS
+			ON ProdP.ProductSubcategoryID = PPS.ProductSubcategoryID
+	--WHERE PPS.ProductSubcategoryID = 1								-- Creates a filter for user to input values by ProductSubcategoryID
 	GROUP BY SSOD.ProductID,
 		ProdP.Name,
-		ProdP.ListPrice
-	ORDER BY SalesRevenue DESC
+		ProdP.ListPrice,
+		PPS.Name,
+		PPS.ProductSubcategoryID
+	ORDER BY SalesRevenue DESC, PPS.ProductSubcategoryID ASC
 
 
 -- Shows which products are selling higher than average amounts. Showcases SUBQUERIES.
