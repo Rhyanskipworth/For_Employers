@@ -186,6 +186,46 @@ GO
 		PPS.ProductSubcategoryID ASC
 
 
+-- Creates a demographic report of all 18k customers
+
+	/*
+
+	Use PATINDEX() whenever you need to specify a pattern to search for.
+	Use CHARINDEX() when you want to specify a starting position within the string to search. 
+	11/14/2020	RS	Encountered ERROR with STRING_SPLIT function. SS does not recognize it as a built-in function
+
+	*/
+
+	SELECT DISTINCT
+		PP.BusinessEntityID,
+		(CASE
+			WHEN PersonType = 'IN' THEN 'Customer'
+			WHEN PersonType = 'EM' THEN 'Employee'
+			WHEN PersonType = 'SP' THEN 'SalesRep'
+			ELSE NULL
+		END) PersonType,
+		CONCAT(PP.Title, PP.FirstName, ' ', COALESCE(PP.MiddleName, PP.LastName), ' ', PP.LastName) Customer,
+		CONCAT(SUBSTRING(PP.FirstName, 1, 1), (SUBSTRING(PP.LastName, 1, 1))) Initial,
+		PE.EmailAddress,
+		PPP.PhoneNumber,
+		PATINDEX('%@%', PE.EmailAddress) '@Position',		
+		CHARINDEX('@', PE.EmailAddress, 3) '@Position',
+		PA.City,
+		COALESCE(PA.AddressLine1, PA.AddressLine2) Address
+		--STRING_SPLIT(PE.EmailAddress , '@')				-- Error. Verified DB is in Compatibility level 140 but server still does not recognize the function.
+	FROM [Person].[Person] PP
+		INNER JOIN [Person].[EmailAddress] PE
+			ON PE.BusinessEntityID = PP.BusinessEntityID
+		INNER JOIN [Person].[PersonPhone] PPP
+			ON PP.BusinessEntityID = PPP.BusinessEntityID
+		INNER JOIN [Person].[BusinessEntityAddress] PBEA
+			ON PP.BusinessEntityID = PBEA.BusinessEntityID
+		INNER JOIN [Person].[Address] PA
+			ON PBEA.AddressID = PA.AddressID
+	WHERE PersonType = 'IN'
+	ORDER BY BusinessEntityID
+
+
 -- Shows which products are selling higher than average amounts. Showcases SUBQUERIES.
 
 	SELECT *
