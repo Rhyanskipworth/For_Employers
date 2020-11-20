@@ -181,7 +181,8 @@ GO
 		ProdP.ListPrice,
 		PPS.Name,
 		PPS.ProductSubcategoryID
-	ORDER BY SalesRevenue DESC, PPS.ProductSubcategoryID ASC
+	ORDER BY SalesRevenue DESC, 
+		PPS.ProductSubcategoryID ASC
 
 
 -- Shows which products are selling higher than average amounts. Showcases SUBQUERIES.
