@@ -36,14 +36,12 @@ GO
 	@DateTo date
 
 	AS
-
 	/*
 	
 	11/10/2020	RS	Created Inital Procedure
 	11/11/2020	RS	Added date parameters, handled nulls, and changed data type for o.OrderDate
 	
 	*/
-
 	SELECT
 		CONCAT(e.FirstName, ' ', e.LastName) Employee,
 		c.ContactName Customer,
