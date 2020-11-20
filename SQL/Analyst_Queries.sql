@@ -140,7 +140,7 @@ GO
 		CONCAT_WS(' ', Title, FirstName, LastName) Employee, 
 		HRE.JobTitle, 
 		HRE.LoginID,
-		((convert(money, HRP.Rate, 1)) * 2080) AnnualSalary,
+		((CONVERT(MONEY, HRP.Rate, 1)) * 2080) AnnualSalary,
 		HRS.Name as WorkShift
 	from HumanResources.Employee HRE
 		INNER JOIN Person.Person P
