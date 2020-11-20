@@ -83,6 +83,7 @@ GO
   	DELETE  FROM DuplicateValues  
   	WHERE  Duplicates = 1  
 
+
 -- How many Employees (EEs) are working in AdventureWorks2019? Showcases my logical analysis with new datasets. 
 
 	/* 
@@ -106,6 +107,7 @@ GO
 	FROM Person.Person 
 	WHERE PersonType IN ('EM', 'SP') 
 
+
 -- Generates an Inventory Cost report for products that fall below the stock quantity safety margin and calculates reorder costs. Showcases CASE STATEMENT & LEFT JOIN.
 
 	SELECT 	PIn.LocationID,
@@ -127,6 +129,7 @@ GO
 	WHERE ListPrice > 0 
 		AND PIn.Quantity < ReorderPoint 
 	ORDER BY ListPrice DESC
+
 
 -- Generates a report that provides full name of highest paid EEs, Job Title, AnnualSalary and WorkShift. Showcases INNER JOIN.
 
