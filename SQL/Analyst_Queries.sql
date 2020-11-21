@@ -108,7 +108,7 @@ GO
 	WHERE PersonType IN ('EM', 'SP') 
 
 
--- Generates an Inventory Cost report for products that fall below the stock quantity safety margin and calculates reorder costs. Showcases CASE STATEMENT & LEFT JOIN.
+-- Generates an Inventory Cost report per Store for products that fall below the stock quantity safety margin and calculates reorder costs. 
 
 	SELECT 	PIn.LocationID,
 		P.ProductID,
@@ -124,7 +124,7 @@ GO
 		P.ListPrice,
 		P.DaysToManufacture
 	FROM [Production].[Product] P
-		LEFT JOIN [Production].[ProductInventory] PIn 
+		INNER JOIN [Production].[ProductInventory] PIn 
 			ON P.ProductID = PIn.ProductID
 	WHERE ListPrice > 0 
 		AND PIn.Quantity < ReorderPoint 
