@@ -162,21 +162,28 @@ GO
 		SSOD.ProductID,
 		PPS.ProductSubcategoryID,
 		PPS.Name ProductSubcategoryID,
-		ROW_NUMBER() OVER (PARTITION BY PPS.ProductSubcategoryID ORDER BY (ProdP.ListPrice * SUM(OrderQty)) DESC) ProductRank,
+		ROW_NUMBER() OVER 
+			(PARTITION BY PPS.ProductSubcategoryID ORDER BY (ProdP.ListPrice * SUM(OrderQty)) DESC) ProductRank,
 		ProdP.Name ProductName,
 		ProdP.ListPrice,
 		SUM(OrderQty) UnitsSold,
 		(ProdP.ListPrice * SUM(OrderQty)) SalesRevenue,
-		RANK() OVER (ORDER BY (ProdP.ListPrice * SUM(OrderQty)) DESC) ProfitTier,		-- Ranks which product are the most profitable. (RANK function skips rows)
-		DENSE_RANK() OVER(ORDER BY (ProdP.ListPrice * SUM(OrderQty)) DESC) ProfitRank,		-- DENSE_RANK allows for repeated rows and returns consectutive values
-		PERCENT_RANK() OVER(ORDER BY (ProdP.ListPrice * SUM(OrderQty))) PercentPriceRank 	-- Ranks the most profitable Product by percentage 
+		RANK() OVER 
+			(PARTITION BY PPS.ProductSubcategoryID 
+			ORDER BY (ProdP.ListPrice * SUM(OrderQty)) DESC) ProfitTier,	-- Ranks which products are the most profitable. (RANK function skips rows)
+		DENSE_RANK() OVER 
+			(PARTITION BY PPS.ProductSubcategoryID 
+			ORDER BY (ProdP.ListPrice * SUM(OrderQty)) DESC) ProfitRank,	-- DENSE_RANK allows for repeated rows and returns consectutive values
+		PERCENT_RANK() OVER
+			(ORDER BY (ProdP.ListPrice * SUM(OrderQty))) PercentPriceRank 	-- Ranks the most profitable Product by percentage 
 		--LAG()
 	FROM Sales.SalesOrderDetail SSOD
 		INNER JOIN Production.Product ProdP
 			ON SSOD.ProductID = ProdP.ProductID
 		INNER JOIN Production.ProductSubcategory PPS
 			ON ProdP.ProductSubcategoryID = PPS.ProductSubcategoryID
-	--WHERE PPS.ProductSubcategoryID = 1								-- Creates a filter for user to input values by ProductSubcategoryID
+	--WHERE PPS.ProductSubcategoryID = 1				-- Creates a filter for user to input values by ProductSubcategoryID
+									-- SELECT DISTINCT * FROM  Production.ProductSubcategory PPS [Creates list of all ProductSubcategories]
 	GROUP BY SSOD.ProductID,
 		ProdP.Name,
 		ProdP.ListPrice,
