@@ -186,7 +186,7 @@ GO
 		PPS.ProductSubcategoryID ASC
 
 
--- Creates a demographic report of all 18k customers
+-- Creates a demographic report of all 18k customers.
 
 	/*
 
@@ -205,7 +205,7 @@ GO
 			ELSE NULL
 		END) PersonType,
 		CONCAT(PP.Title, PP.FirstName, ' ', COALESCE(PP.MiddleName, PP.LastName), ' ', PP.LastName) Customer,
-		CONCAT(SUBSTRING(PP.FirstName, 1, 1), (SUBSTRING(PP.LastName, 1, 1))) Initial,
+		CONCAT(SUBSTRING(PP.FirstName, 1, 1), (SUBSTRING(PP.LastName, 1, 1))) Initials,
 		PE.EmailAddress,
 		PPP.PhoneNumber,
 		PATINDEX('%@%', PE.EmailAddress) '@Position',		
@@ -214,7 +214,7 @@ GO
 		COALESCE(PA.AddressLine1, PA.AddressLine2) Address
 		--STRING_SPLIT(PE.EmailAddress , '@')				-- Error. Verified DB is in Compatibility level 140 but server still does not recognize the function.
 	FROM [Person].[Person] PP
-		INNER JOIN [Person].[EmailAddress] PE
+		INNER JOIN [Person].[EmailAddress]	PE
 			ON PE.BusinessEntityID = PP.BusinessEntityID
 		INNER JOIN [Person].[PersonPhone] PPP
 			ON PP.BusinessEntityID = PPP.BusinessEntityID
@@ -224,6 +224,7 @@ GO
 			ON PBEA.AddressID = PA.AddressID
 	WHERE PersonType = 'IN'
 	ORDER BY BusinessEntityID
+
 
 
 -- Shows which products are selling higher than average amounts. Showcases SUBQUERIES.
