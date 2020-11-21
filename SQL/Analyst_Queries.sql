@@ -189,10 +189,10 @@ GO
 -- Creates a demographic report of all 18k customers.
 
 	/*
-
-	Use PATINDEX() whenever you need to specify a pattern to search for.
-	Use CHARINDEX() when you want to specify a starting position within the string to search. 
+	
 	11/14/2020	RS	Encountered ERROR with STRING_SPLIT function. SS does not recognize it as a built-in function
+	11/20/2020	RS	Original script contained 18,484 customers. Adding PA.City and COALESCE(PA.AddressLine1, PA.AddressLine2) Address created 18,505.
+				May indicate that 21 customers may have multiple addresses.
 
 	*/
 
@@ -208,8 +208,8 @@ GO
 		CONCAT(SUBSTRING(PP.FirstName, 1, 1), (SUBSTRING(PP.LastName, 1, 1))) Initials,
 		PE.EmailAddress,
 		PPP.PhoneNumber,
-		PATINDEX('%@%', PE.EmailAddress) '@Position',		
-		CHARINDEX('@', PE.EmailAddress, 3) '@Position',
+		PATINDEX('%@%', PE.EmailAddress) '@Position',			-- Use PATINDEX() whenever you need to specify a pattern to search for.
+		CHARINDEX('@', PE.EmailAddress, 3) '@Position',			-- Use CHARINDEX() when you want to specify a starting position within the string to search.
 		PA.City,
 		COALESCE(PA.AddressLine1, PA.AddressLine2) Address
 		--STRING_SPLIT(PE.EmailAddress , '@')				-- Error. Verified DB is in Compatibility level 140 but server still does not recognize the function.
