@@ -192,7 +192,7 @@ GO
 	
 	11/14/2020	RS	Encountered ERROR with STRING_SPLIT function. SS does not recognize it as a built-in function
 	11/20/2020	RS	Original script contained 18,484 customers. Adding PA.City and COALESCE(PA.AddressLine1, PA.AddressLine2) Address created 18,505.
-				May indicate that 21 customers may have multiple addresses.
+				May indicate that 21 customers have multiple addresses.
 
 	*/
 
