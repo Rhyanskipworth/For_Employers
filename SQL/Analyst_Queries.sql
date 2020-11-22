@@ -1,6 +1,5 @@
 /* 
 When an error occurs, I use StackOverflow and MicDocs to self-evaluate, if that doesn't work, I ask my senior for a solution to avoid wasting time.
-
 */
 
 
