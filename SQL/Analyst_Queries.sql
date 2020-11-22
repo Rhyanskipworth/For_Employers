@@ -1,12 +1,14 @@
-/* When an error occurs, I use StackOverflow and MicDocs to self-evaluate,
-if that doesn't work, I ask my senior for a solution to avoid wasting time. */
+/* 
+When an error occurs, I use StackOverflow and MicDocs to self-evaluate, if that doesn't work, I ask my senior for a solution to avoid wasting time.
+
+*/
 
 
 
 USE WideWorldImportersDW
 GO
 
--- Concatenating query result into one column to allow SSIS data flow to automate data extraction package by preventing manual "metadata error" with comma delimiter.
+-- Concatenating query result into one column to allow SSIS data flow to automate data extraction package by preventing manual "metadata error."
 
 	SELECT CONCAT_WS
 	(
@@ -27,21 +29,19 @@ GO
 USE [Northwind]
 GO
 
--- Creates a stored procedure to view each sales rep's overall revenue ordered by country.
+-- Stored Procedure: View each sale(s) rep's overall revenue generated ordered by country.
 
-	ALTER PROCEDURE [dbo].[CustomerOrderByCountry]
-
-	@Country varchar(15),
-	@DateFrom date,
-	@DateTo date
-
-	AS
 	/*
-	
 	11/10/2020	RS	Created Inital Procedure
 	11/11/2020	RS	Added date parameters, handled nulls, and changed data type for o.OrderDate
-	
 	*/
+	
+	ALTER PROCEDURE [dbo].[CustomerOrderByCountry]
+		@Country varchar(15),
+		@DateFrom date,
+		@DateTo date
+	AS
+	
 	SELECT
 		CONCAT(e.FirstName, ' ', e.LastName) Employee,
 		C.ContactName Customer,
@@ -71,7 +71,7 @@ GO
 USE AdventureWorks2019
 GO
 
--- Removes duplicate values from Production.TransactionHistory table. Showcases data cleansing.
+-- Data Cleansing: Removes duplicate values from Production.TransactionHistory table.
 	
 	WITH  DuplicateValues AS  
  		( SELECT  PTH.TransactionID, 
@@ -84,7 +84,7 @@ GO
   	WHERE  Duplicates = 1  
 
 
--- Report for annual product price changes (purchasing cost & selling price), ordered by product categories.
+-- Product Price Changes: Reports annual product price changes for purchasing cost and selling price, calculates average profit per product, ordered by product categories.
 
 	SELECT DISTINCT 
 		PPC.ProductCategoryID,
@@ -116,7 +116,7 @@ GO
 		PPLPH.ProductID
 	
 	
--- Generates an Inventory Cost report per Store for products that fall below the stock quantity safety margin and calculates reorder costs. 
+-- Inventory Cost: Reports products (per store location) that fall below the stock quantity safety margin and calculates reorder costs. 
 
 	SELECT 	PIn.LocationID,
 		P.ProductID,
@@ -124,10 +124,10 @@ GO
 		P.SafetyStockLevel,
 		P.ReorderPoint,
 		PIn.Quantity,
-			CASE
+			(CASE
 				WHEN PIn.Quantity < P.ReorderPoint THEN (P.ReorderPoint - PIn.Quantity)*P.StandardCost
 			ELSE NULL
-			END ReorderCost,
+			END) ReorderCost,
 		P.StandardCost,
 		P.ListPrice,
 		P.DaysToManufacture
@@ -142,16 +142,14 @@ GO
 -- How many Employees (EEs) are working in AdventureWorks2019? Showcases my logical analysis with new datasets. 
 
 	/* 
-	
 	11/14/2020	RS	Taken from 'https://dataedo.com/download/AdventureWorks.pdf (page.17)'
 				SP = Sales person, 
 				EM = Employee (non-sales)
 				IN = Individual (retail) Customer
-	
 	*/
 
-	SELECT * 					--290 rows returned, which means there are 290 EEs in total
-	FROM HumanResources.Employee 			
+	SELECT * FROM HumanResources.Employee		--290 rows returned, which means there are 290 EEs in total
+	 			
 
 	SELECT COUNT(*) as Total_Employees, 		--To identify all person classifications
 		PersonType 
@@ -163,10 +161,9 @@ GO
 	WHERE PersonType IN ('EM', 'SP') 
 	
 	
--- Generates a report that provides full name of highest paid EEs, Job Title, AnnualSalary and WorkShift. Showcases INNER JOIN.
+-- Employee (EE): Reports full name of highest paid EEs, their Job Title, AnnualSalary and WorkShift.
 
-	SELECT MIN(StartDate) 
-	FROM HumanResources.EmployeeDepartmentHistory 
+	SELECT MIN(StartDate) FROM HumanResources.EmployeeDepartmentHistory	-- Error check to verify EEs with the earliest hire date.
 
 	SELECT HRE.BusinessEntityID, 
 		CONCAT_WS(' ', Title, FirstName, LastName) Employee, 
@@ -188,7 +185,7 @@ GO
 	ORDER BY BusinessEntityID
 	
 	
--- Creates a report for Best-Selling Products. Showcases Analytic Functions.
+-- Best-Selling Products Report: Ranks the most profitable product, ordered by category.
 	
 	SELECT DISTINCT 
 		SSOD.ProductID,
@@ -225,7 +222,7 @@ GO
 		PPS.ProductSubcategoryID ASC
 
 
--- Creates a demographic report of all 18k customers.
+-- Customers Report: Demographic data of all 18k customers.
 
 	/*
 	
@@ -265,7 +262,7 @@ GO
 	ORDER BY BusinessEntityID
 
 
--- Shows which products are selling higher than average amounts. Showcases SUBQUERIES.
+-- Quantity Sold Report: Shows which products are selling at higher than average amounts.
 
 	SELECT *
 	FROM
