@@ -83,7 +83,7 @@ GO
   	WHERE  Duplicates = 1  
 
 
--- Product Price Changes: Reports annual product price changes for purchasing cost and selling price, calculates average profit per product, ordered by product categories.
+-- Product Price Changes Report: Shows the price changes for purchasing cost and selling price per product, calculates average profit per product, ordered by product categories.
 
 	SELECT DISTINCT 
 		PPC.ProductCategoryID,
@@ -115,7 +115,7 @@ GO
 		PPLPH.ProductID
 	
 	
--- Inventory Cost: Reports products (per store location) that fall below the stock quantity safety margin and calculates reorder costs. 
+-- Inventory Cost Report: Shows products (per store location) that fall below the stock quantity safety margin and calculates reorder costs. 
 
 	SELECT 	PIn.LocationID,
 		P.ProductID,
@@ -138,7 +138,7 @@ GO
 	ORDER BY ListPrice DESC
 	
 	
--- How many Employees (EEs) are working in AdventureWorks2019? Showcases my logical analysis with new datasets. 
+-- How many Employees (EEs) are working in AdventureWorks2019? Showcases how I analyze new datasets. 
 
 	/* 
 	11/14/2020	RS	Taken from 'https://dataedo.com/download/AdventureWorks.pdf (page.17)'
