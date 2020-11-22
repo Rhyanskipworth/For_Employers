@@ -265,7 +265,6 @@ GO
 	ORDER BY BusinessEntityID
 
 
-
 -- Shows which products are selling higher than average amounts. Showcases SUBQUERIES.
 
 	SELECT *
