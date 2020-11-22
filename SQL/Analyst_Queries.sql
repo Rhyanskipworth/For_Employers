@@ -108,6 +108,38 @@ GO
 	WHERE PersonType IN ('EM', 'SP') 
 
 
+-- Report for annual product price changes (purchasing cost & selling price), ordered by product categories.
+
+	SELECT DISTINCT 
+		PPC.ProductCategoryID,
+		PPSC.ProductSubcategoryID,
+		PPCH.ProductID,
+		MIN(ROUND(PPCH.StandardCost, 2)) OVER (PARTITION BY PPCH.ProductID) MinCost,
+		MAX(ROUND(PPCH.StandardCost, 2)) OVER (PARTITION BY PPCH.ProductID) MaxCost,
+		AVG(ROUND(PPCH.StandardCost, 2)) OVER (PARTITION BY PPCH.ProductID) AvgCost,
+		MIN(ROUND(PPLPH.ListPrice, 2)) OVER (PARTITION BY PPLPH.ProductID) MinSellPrice,
+		MAX(ROUND(PPLPH.ListPrice, 2)) OVER (PARTITION BY PPLPH.ProductID) MaxSellPrice,
+		AVG(ROUND(PPLPH.ListPrice, 2)) OVER (PARTITION BY PPLPH.ProductID) AvgSellPrice,
+		ROUND((AVG(ROUND(PPLPH.ListPrice, 2)) OVER (PARTITION BY PPLPH.ProductID) - AVG(ROUND(PPCH.StandardCost, 2)) OVER (PARTITION BY PPCH.ProductID)), 2) Profit
+	FROM 
+		[Production].[ProductCostHistory] PPCH
+			INNER JOIN [Production].[Product] PP
+				ON PPCH.ProductID = PP.ProductID
+			INNER JOIN [Production].[ProductListPriceHistory] PPLPH
+				ON PP.ProductID = PPLPH.ProductID
+			INNER JOIN [Production].[ProductSubcategory] PPSC
+				ON PPSC.ProductSubcategoryID = PP.ProductSubcategoryID
+			INNER JOIN [Production].[ProductCategory] PPC
+				ON PPSC.ProductCategoryID = PPC.ProductCategoryID
+	GROUP BY 
+		PPC.ProductCategoryID,
+		PPSC.ProductSubcategoryID,
+		PPCH.ProductID,
+		PPCH.StandardCost,
+		PPLPH.ListPrice,
+		PPLPH.ProductID
+	
+	
 -- Generates an Inventory Cost report per Store for products that fall below the stock quantity safety margin and calculates reorder costs. 
 
 	SELECT 	PIn.LocationID,
