@@ -84,30 +84,6 @@ GO
   	WHERE  Duplicates = 1  
 
 
--- How many Employees (EEs) are working in AdventureWorks2019? Showcases my logical analysis with new datasets. 
-
-	/* 
-	
-	11/14/2020	RS	Taken from 'https://dataedo.com/download/AdventureWorks.pdf (page.17)'
-				SP = Sales person, 
-				EM = Employee (non-sales)
-				IN = Individual (retail) Customer
-	
-	*/
-
-	SELECT * 					--290 rows returned, which means there are 290 EEs in total
-	FROM HumanResources.Employee 			
-
-	SELECT COUNT(*) as Total_Employees, 		--To identify all person classifications
-		PersonType 
-	FROM Person.Person 
-	GROUP BY PersonType 				
-
-	SELECT * 					--Returns all 290 EEs
-	FROM Person.Person 
-	WHERE PersonType IN ('EM', 'SP') 
-
-
 -- Report for annual product price changes (purchasing cost & selling price), ordered by product categories.
 
 	SELECT DISTINCT 
@@ -161,8 +137,32 @@ GO
 	WHERE ListPrice > 0 
 		AND PIn.Quantity < ReorderPoint 
 	ORDER BY ListPrice DESC
+	
+	
+-- How many Employees (EEs) are working in AdventureWorks2019? Showcases my logical analysis with new datasets. 
 
+	/* 
+	
+	11/14/2020	RS	Taken from 'https://dataedo.com/download/AdventureWorks.pdf (page.17)'
+				SP = Sales person, 
+				EM = Employee (non-sales)
+				IN = Individual (retail) Customer
+	
+	*/
 
+	SELECT * 					--290 rows returned, which means there are 290 EEs in total
+	FROM HumanResources.Employee 			
+
+	SELECT COUNT(*) as Total_Employees, 		--To identify all person classifications
+		PersonType 
+	FROM Person.Person 
+	GROUP BY PersonType 				
+
+	SELECT * 					--Returns all 290 EEs
+	FROM Person.Person 
+	WHERE PersonType IN ('EM', 'SP') 
+	
+	
 -- Generates a report that provides full name of highest paid EEs, Job Title, AnnualSalary and WorkShift. Showcases INNER JOIN.
 
 	SELECT MIN(StartDate) 
