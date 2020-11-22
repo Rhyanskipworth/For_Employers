@@ -204,7 +204,6 @@ GO
 			ORDER BY (ProdP.ListPrice * SUM(OrderQty)) DESC) ProfitRank,	-- DENSE_RANK allows for repeated rows and returns consectutive values
 		PERCENT_RANK() OVER
 			(ORDER BY (ProdP.ListPrice * SUM(OrderQty))) PercentPriceRank 	-- Ranks the most profitable Product by percentage 
-		--LAG()
 	FROM Sales.SalesOrderDetail SSOD
 		INNER JOIN Production.Product ProdP
 			ON SSOD.ProductID = ProdP.ProductID
@@ -241,6 +240,7 @@ GO
 		END) PersonType,
 		CONCAT(PP.Title, PP.FirstName, ' ', COALESCE(PP.MiddleName, PP.LastName), ' ', PP.LastName) Customer,
 		CONCAT(SUBSTRING(PP.FirstName, 1, 1), (SUBSTRING(PP.LastName, 1, 1))) Initials,
+		SOUNDEX(PE.EmailAddress) EmailID,
 		PE.EmailAddress,
 		PPP.PhoneNumber,
 		PATINDEX('%@%', PE.EmailAddress) '@Position',			-- Use PATINDEX() whenever you need to specify a pattern to search for.
