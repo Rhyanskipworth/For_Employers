@@ -220,6 +220,22 @@ GO
 		PPS.ProductSubcategoryID ASC
 
 
+-- Territory Sales Report: Shows current sales based on region to compare previous year sales and expected future sales.
+
+	SELECT
+		SP.TerritoryID,
+		ST.Name,
+		CAST(SP.ModifiedDate AS date) SalesDate,
+		SP.BusinessEntityID,
+		SP.SalesYTD,
+		LAG (SP.SalesYTD, 1, 0) OVER (PARTITION BY SP.TerritoryID ORDER BY SP.TerritoryID DESC) PrevQuota,
+		LEAD (SP.SalesYTD, 1, 0) OVER (PARTITION BY SP.TerritoryID ORDER BY SP.TerritoryID DESC) ProjectedQuota
+	FROM [Sales].[SalesPerson] SP
+		INNER JOIN [Sales].[SalesTerritory] ST
+			ON SP.TerritoryID = ST.TerritoryID
+	ORDER BY SP.TerritoryID
+
+
 -- Customers Report: Demographic data of all 18k customers.
 
 	/*
