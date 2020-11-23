@@ -228,8 +228,8 @@ GO
 		CAST(SP.ModifiedDate AS date) SalesDate,
 		SP.BusinessEntityID,
 		SP.SalesYTD,
-		LAG (SP.SalesYTD, 1, 0) OVER (PARTITION BY SP.TerritoryID ORDER BY SP.TerritoryID DESC) PrevQuota,
-		LEAD (SP.SalesYTD, 1, 0) OVER (PARTITION BY SP.TerritoryID ORDER BY SP.TerritoryID DESC) ProjectedQuota
+		LAG(SP.SalesYTD, 1, 0) OVER (PARTITION BY SP.TerritoryID ORDER BY SP.TerritoryID DESC) PrevQuota,
+		LEAD(SP.SalesYTD, 1, 0) OVER (PARTITION BY SP.TerritoryID ORDER BY SP.TerritoryID DESC) ProjectedQuota
 	FROM [Sales].[SalesPerson] SP
 		INNER JOIN [Sales].[SalesTerritory] ST
 			ON SP.TerritoryID = ST.TerritoryID
