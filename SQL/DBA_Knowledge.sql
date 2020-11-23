@@ -5,8 +5,18 @@
 
 -- To auto-replicate DBs to another server, use the Replication Manager (via GUI) to create a publisher and subscriber.
 
-SELECT @@SERVERNAME				-- Returns ServerName for Database Mail Configuration Wizard
-EXECUTE msdb.dbo.sysmail_help_profile_sp;	-- Verifies Database Mail Account was created
+
+-- Queries to check why my Database Mail is not sending Test email
+
+	sp_configure 'show advanced', 1; 
+	GO
+	RECONFIGURE;
+	GO
+	sp_configure;
+	GO
+
+	SELECT @@SERVERNAME				-- Returns ServerName for Database Mail Configuration Wizard
+	EXECUTE msdb.dbo.sysmail_help_profile_sp;	-- Verifies Database Mail Account was created
 
 -- Creates a DB snapshot for temporary period-over-period analyses/reporting and restoration (dbss should NOT replace standard backup and restore strategy).
 
