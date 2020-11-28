@@ -1,4 +1,4 @@
 # INDEX
 
-## Classic_Games
+## Games:<GameName>
 Python files that create classic games (Pong, Tetris, Flappy Bird). [Original source codes referenced in each file]
