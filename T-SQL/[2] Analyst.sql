@@ -313,3 +313,12 @@ GO
 							ProdP.ListPrice) AvgHighestProfitProducts)
 	ORDER BY PercentRankOfSalesRevenue DESC
 
+
+-- Showcases UNION.
+
+	SELECT TOP 500 AddressID FROM [Person].[Address]
+	UNION 
+	SELECT TOP 500 AddressTypeID from [Person].[AddressType]
+	
+	
+	
