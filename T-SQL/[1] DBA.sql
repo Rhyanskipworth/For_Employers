@@ -1,4 +1,4 @@
-PowerBI: As a general rule, use measures whenever you can (for numbers) and you only used calcolumns if you need the physical structure of the column (to slice and dice).
+--PowerBI: As a general rule, use measures whenever you can (for numbers) and you only used calcolumns if you need the physical structure of the column (to slice and dice).
 
 /* Data migration techniques,
 	1st option: Back up the source data files then restore '.bak' files onto the destination server DB.
