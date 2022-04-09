@@ -1,5 +1,5 @@
 # For_Employers
 
-Hello! 
+Hello Recruiter/Employer! 
 
-This repository is a digital footprint intended for employers to assess the technical skills highlighted in my Resume. 
+This repository shows previous scripts made to assess the technical skills (SSRS, T-SQL, etc.) highlighted in my Resume. 
