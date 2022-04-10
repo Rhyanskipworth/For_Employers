@@ -1,4 +1,4 @@
 # SQL Server Report Services
 
-View my SSRS Web Portal @ http://desktop-uid1jce/Reports/browse/ as user DESKTOP-UID1JCE\ 
+View my SSRS Web Portal @ http://desktop-uid1jce/Reports/browse/ 
 
